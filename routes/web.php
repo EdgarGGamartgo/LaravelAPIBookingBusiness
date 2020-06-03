@@ -1,5 +1,9 @@
 <?php
 
+use App\Destino;
+use App\Inventario;
+use App\Solicitud;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\User;
@@ -15,10 +19,6 @@ use App\Address;
 |
 */
 
-Route::get('/', function () {
-  
-    return view('welcome'); 
-});
 
 
 Route::get('/insert', function () {
@@ -52,23 +52,23 @@ Route::get('/read', function () {
    $user = User::findOrFail(1);
 
  return   $user->address->name;
-    
+
 
     });
-    
-    
+
+
 
     Route::get('/delete', function () {
 
         $user = User::findOrFail(1);
-     
+
         $user->address()->delete();
-         
-     
+
+
          });
-         
-         
-             
+
+
+
 
 
 

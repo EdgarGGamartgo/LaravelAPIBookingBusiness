@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use App\Solicitud;
+use App\Destino;
+use App\Inventario;
 
 class UserController extends Controller
 {
@@ -92,6 +95,79 @@ class UserController extends Controller
     {
         $user = Auth::user();
         return response()->json(['success' => $user], $this-> successStatus);
+    }
+
+    // Search availability
+
+    public function searchAvailability(Request $request) {
+        // Save new entry to table "solicitud"
+        info($request);
+        error_log($request);
+        $solicitud = new Solicitud;
+        $solicitud->destino = $request->destino;
+        $solicitud->extras = $request->extraServices;
+        $solicitud->checkIn = $request->checkIn;
+        $solicitud->checkOut = $request->checkOut;
+        $solicitud->guests = $request->adults;
+        $solicitud->rooms = $request->rooms;
+        $solicitud->save();
+        // Get idDestino from stock
+        $destino = Destino::all();
+        $idDestino = 0;
+        if($request->destino )
+            foreach($destino as $desti) {
+
+                if($request->destino == $desti->nombre) {
+                    $idDestino =  $desti->id;
+                }
+            }
+        // Get all availabli hotels from stock
+        $inventario = Inventario::all();
+        $result = [];
+        $allResults = array();
+
+        foreach($inventario as $stock) {
+
+            if($idDestino == $stock->idDestino && $stock->estatus == 1) {   // estatus == 1 == disponible para vender
+                $result = [
+                    "hotelName"=> $stock->nombreEspacio,        // Ask where to get hotelName
+                    "arrivalDate"=> $request->checkIn,
+                    "departureDate"=> $request->checkOut,
+                    "totalCost"=> "100",        // "Inventario" table lacks a cost per night
+                    "currency"=> "MXN"
+                ];
+                array_push($allResults,$result);
+
+            }
+        }
+        $result2 = [
+            "hotelName"=> "Hotel Fantasma",        // Ask where to get hotelName
+            "arrivalDate"=> $request->checkIn,
+            "departureDate"=> $request->checkOut,
+            "totalCost"=> "100",        // "Inventario" table lacks a cost per night
+            "currency"=> "MXN"
+        ];
+        array_push($allResults,$result2);
+
+        // Send JSON response
+        info($result);
+
+        if($result != []) {
+
+            return response()->json($allResults);
+
+        } else {
+
+            return response()->json([
+                'hotelName' => 'No availability',
+                'arrivalDate' => 'No availability',
+                'departureDate' => 'No availability',
+                'totalCost' => '0',
+                'currency' => 'MXN',
+            ]);
+
+        }
+
     }
 }
 
