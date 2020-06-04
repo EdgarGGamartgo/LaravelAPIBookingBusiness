@@ -209,6 +209,9 @@ class UserController extends Controller
                         ];
                      //   exchangeRates(100,"EUR"); Separate business logic into services: single action classes, traits, Design Pattern : Service Layer with Laravel 5,
                      // CALL EXCHANGE SERVICE, MULTIPLE totalCost and get the proper currency displayed from front end language
+                    // return json with first option the "hotel selected" if possible, also return the exact dates and
+                        // Also adults, kids and rooms and of course add extra services
+                        // This is a complex WS and it's going to take some time
                         array_push($allResults,$result);
                     }
                 }
