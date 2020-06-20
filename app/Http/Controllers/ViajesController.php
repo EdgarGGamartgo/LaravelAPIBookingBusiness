@@ -9,9 +9,24 @@ use App\Inventario;
 use App\Solicitud;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use App\Http\Traits\Mobile;
 
 class ViajesController extends Controller
 {
+    use Mobile;
+    /**
+     * @var index
+     */
+
+
+
+
+    public function traits() {
+
+        $this->battery();
+
+    }
+
     public function exchangeRates($amount, $to) {
         $apiKey = $_ENV['EXCHANGE_API_KEY'];
         $req_url = 'https://openexchangerates.org/api/latest.json?app_id='.$apiKey; // 23db6f1918544371bec3c71212f37943 Always USD as base currency as long as I use Free plan for this API

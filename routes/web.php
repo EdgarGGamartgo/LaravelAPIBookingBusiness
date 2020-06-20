@@ -31,6 +31,8 @@ Route::get('/insert', function () {
 
 });
 
+Route::get('/traits', 'ViajesController@traits');
+
 
 
 Route::get('/update', function () {

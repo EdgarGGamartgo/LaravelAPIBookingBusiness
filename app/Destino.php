@@ -16,5 +16,5 @@ class Destino extends Model
 
     ];
 
-    protected $guarded = [];
+  //  protected $guarded = [];
 }
