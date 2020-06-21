@@ -40,3 +40,12 @@
                 }
 
         }
+
+---------------------------------------------------------------------
+
+1) searchAvailability POST turn into GET with HEADERS --> DONE
+2) $matchThese = ['idDestino' => $destinyId, 'estatus' => '1']; --> Change hard-coded to interface --> DONE
+3) Return total night to client ---> DONE
+4) Lang --> Currency on ExchangeRates --> CURRENTLY WORKING
+5) axios.get('url', {headers: {"x-dsi-restful":1}})  ---> DONE
+-----------------------------------------------------------------------

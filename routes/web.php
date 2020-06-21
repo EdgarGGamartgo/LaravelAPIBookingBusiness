@@ -49,11 +49,23 @@ Route::get('/update', function () {
 
 
 
-Route::get('/read', function () {
+Route::get('/read', function (Illuminate\Http\Request $request) {
 
-   $user = User::findOrFail(1);
+ //  $user = User::findOrFail(1);
 
- return   $user->address->name;
+    $json = $request->header('s-a');//$request->headers->all();//$this->header('x-dsi-restful', '');
+    $json2 = '{"foo-bar": 12345,"foo-bar2": 12345}';
+info("fallas");
+info($json);
+    info("fallas2");
+    info($json2);
+
+    $obj = json_decode($json, true);
+   // info($json);
+    info("Hola");
+    info($obj);
+
+ return   $obj;
 
 
     });

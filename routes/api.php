@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 }); */
 
 
+Route::post('exchangeRates', 'UserController@exchangeRates');
 Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
@@ -28,5 +29,5 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('logout', 'UserController@logout');
 });
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::post('searchAvailability', 'UserController@searchAvailability');
+    Route::get('searchAvailability', 'UserController@searchAvailability');
 });

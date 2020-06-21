@@ -5,6 +5,7 @@ namespace App\Services\SearchAvailabilityService;
 
 
 use App\Destino;
+use App\Domain\Responses\SuccessfulResponses\ISuccessfulResponses;
 use App\Inventario;
 use App\Services\FindStockService\IFindStockService;
 use App\Services\RegisterAvailabilityRequestService\IRegisterAvailabilityRequest;
@@ -14,49 +15,36 @@ use App\User;
 
 class SearchAvailabilityService implements  SearchAvailabilityInterface
 {
-    public $successStatus = 200;
-    protected $registerAvailabilityRequest;
-    protected $findStockService;
+    public int $successStatus = 200;
+    protected IRegisterAvailabilityRequest $registerAvailabilityRequest;
+    protected IFindStockService $findStockService;
+    protected ISuccessfulResponses $successfulResponses;
 
-    public function __construct(IRegisterAvailabilityRequest $registerAvailabilityRequest, IFindStockService $findStockService)
+    public function __construct(IRegisterAvailabilityRequest $registerAvailabilityRequest, IFindStockService $findStockService,
+                                ISuccessfulResponses $successfulResponses)
     {
         $this->registerAvailabilityRequest = $registerAvailabilityRequest;
         $this->findStockService = $findStockService;
+        $this->successfulResponses = $successfulResponses;
     }
 
     public function searchAvailability($request) {
 
         $this->registerAvailabilityRequest->saveAvailabilityRequest($request);
-        $inventario = $this->findStockService->findStockByIdByStatus($request->destino);
-        $result = [];
-        $allResults = array();
-        foreach($inventario as $stock) {
-            $result = [
-                "hotelName"=> $stock->nombreEspacio,
-                "arrivalDate"=> $request->checkIn,
-                "departureDate"=> $request->checkOut,
-                "totalCost"=> 0,    // TODO: GET REAL COST USE EXTERNAL CURRENCY API
-                "currency"=> "MXN" // TODO: GET REAL CURRENCY USE EXTERNAL CURRENCY API
-            ];
-            array_push($allResults,$result);
-        }
+        $stock = $this->findStockService->findStockByIdByStatus($request->destino);
+        $response = $this->successfulResponses->successfulAvailabilityResponse($stock, $request);
 
-        // Send JSON response
+        if($response) {
 
-        if($result != []) {
-
-            return response()->json($allResults); // TODO: INSERT DTO
-
-        } else {
-
-            return response()->json([                   // TODO: INSERT DTO
-                'hotelName' => 'No availability',
-                'arrivalDate' => 'No availability',
-                'departureDate' => 'No availability',
-                'totalCost' => '0',
-                'currency' => 'MXN',
+            return response()->json([
+                'data' => $response,
+                'meta' => [
+                    'statusCode' => $this->successStatus
+                ]
             ]);
 
+        } else {
+            return response(['error'=>true,'error-msg'=>"No availability"],404);
         }
     }
 }

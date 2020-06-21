@@ -17,8 +17,8 @@ use App\Inventario;
 
 class UserController extends Controller
 {
-    public $successStatus = 200;
-    protected $searchAvailability;
+    public int $successStatus = 200;
+    protected SearchAvailabilityInterface $searchAvailability;
 
     public function __construct(SearchAvailabilityInterface $searchAvailability)
     {
@@ -139,11 +139,10 @@ class UserController extends Controller
         return response()->json(['success' => $user], $this-> successStatus);
     }
 
-    // Search availability
 
     public function searchAvailability(Request $request) {
 
-       return $this->searchAvailability->searchAvailability($request);
+        return $this->searchAvailability->searchAvailability(json_decode($request->header('s-a')));
 
 
     }
