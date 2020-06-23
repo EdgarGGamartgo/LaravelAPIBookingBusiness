@@ -35,17 +35,20 @@ Route::get('/traits', 'ViajesController@traits');
 
 
 
-Route::get('/update', function () {
+//Route::get('/update', 'HotelController@getZones');
+//Route::get('/getHotels2', 'HotelController@getHotels');
+
+//Route::get('getZones', 'UserController@getZones');
 
 //    $address = Address::where('user_id',1);
 
-    $address = Address::whereUserId(1)->first();
+//    $address = Address::whereUserId(1)->first();
 
-    $address->name = "Update new address";
+ //   $address->name = "Update new address";
 
-    $address->save();
+//    $address->save();
 
-});
+
 
 
 

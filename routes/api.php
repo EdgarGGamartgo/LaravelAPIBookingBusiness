@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 }); */
 
 
-Route::post('exchangeRates', 'UserController@exchangeRates');
+
 Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
@@ -30,4 +30,10 @@ Route::group(['middleware' => 'auth:api'], function(){
 });
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('searchAvailability', 'UserController@searchAvailability');
+});
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::get('getHotels', 'HotelController@getHotels');
+});
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::get('getZones', 'HotelController@getZones');
 });

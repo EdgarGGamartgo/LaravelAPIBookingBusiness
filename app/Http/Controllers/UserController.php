@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Services\GetZonesService\IGetZonesService;
 use App\Services\SearchAvailabilityService\SearchAvailabilityInterface;
 use App\TipoUnidad;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ class UserController extends Controller
     public function __construct(SearchAvailabilityInterface $searchAvailability)
     {
         $this->searchAvailability = $searchAvailability;
+
     }
 
 
@@ -114,5 +116,7 @@ class UserController extends Controller
 
 
     }
+
+
 }
 

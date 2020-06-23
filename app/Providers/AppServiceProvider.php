@@ -12,6 +12,10 @@ use App\Services\FindStockService\FindStockService;
 use App\Services\FindStockService\IFindStockService;
 use App\Services\FindTotalNumberReservationNights\FindTotalNumberReservationNightsService;
 use App\Services\FindTotalNumberReservationNights\IFindTotalNumberReservationNights;
+use App\Services\GetHotelsService\GetHotelsService;
+use App\Services\GetHotelsService\IGetHotelsService;
+use App\Services\GetZonesService\GetZonesService;
+use App\Services\GetZonesService\IGetZonesService;
 use App\Services\RegisterAvailabilityRequestService\IRegisterAvailabilityRequest;
 use App\Services\RegisterAvailabilityRequestService\RegisterAvailabilityRequestService;
 use App\Services\SearchAvailabilityService\SearchAvailabilityInterface;
@@ -34,6 +38,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ISuccessfulResponses::class, SuccessfulResponsesService::class);
         $this->app->bind(IFindTotalNumberReservationNights::class, FindTotalNumberReservationNightsService::class);
         $this->app->bind(IExchangeRatesService::class, ExchangeRatesService::class);
+        $this->app->bind(IGetZonesService::class, GetZonesService::class);
+        $this->app->bind(IGetHotelsService::class, GetHotelsService::class);
+
     }
 
     /**
