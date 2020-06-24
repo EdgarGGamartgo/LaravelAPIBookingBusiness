@@ -29,6 +29,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('logout', 'UserController@logout');
 });
 Route::group(['middleware' => 'auth:api'], function(){
+    Route::post('saveSoldStay', 'TripController@saveSoldStay');
+});
+Route::group(['middleware' => 'auth:api'], function(){
     Route::get('searchAvailability', 'UserController@searchAvailability');
 });
 Route::group(['middleware' => 'auth:api'], function(){

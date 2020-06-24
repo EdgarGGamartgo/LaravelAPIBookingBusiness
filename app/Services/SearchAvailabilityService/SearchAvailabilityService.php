@@ -31,20 +31,15 @@ class SearchAvailabilityService implements  SearchAvailabilityInterface
     public function searchAvailability($request) {
 
         $this->registerAvailabilityRequest->saveAvailabilityRequest($request);
-        $stock = $this->findStockService->findStockByIdByStatus($request->destino);
+        $stock = $this->findStockService->findStockByIdByStatus($request);
         $response = $this->successfulResponses->successfulAvailabilityResponse($stock, $request);
 
         if($response) {
 
-            return response()->json([
-                'data' => $response,
-                'meta' => [
-                    'statusCode' => $this->successStatus
-                ]
-            ]);
+            return $this->successfulResponses->generalSuccessfulResponse($response);
 
         } else {
-            return response(['error'=>true,'error-msg'=>"No availability"],404);
+            return $this->successfulResponses->general404Response();
         }
     }
 }

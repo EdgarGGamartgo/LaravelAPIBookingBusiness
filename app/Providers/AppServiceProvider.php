@@ -18,6 +18,8 @@ use App\Services\GetZonesService\GetZonesService;
 use App\Services\GetZonesService\IGetZonesService;
 use App\Services\RegisterAvailabilityRequestService\IRegisterAvailabilityRequest;
 use App\Services\RegisterAvailabilityRequestService\RegisterAvailabilityRequestService;
+use App\Services\SaveSoldStayService\ISaveSoldStayService;
+use App\Services\SaveSoldStayService\SaveSoldStayService;
 use App\Services\SearchAvailabilityService\SearchAvailabilityInterface;
 use App\Services\SearchAvailabilityService\SearchAvailabilityService;
 use Illuminate\Support\ServiceProvider;
@@ -40,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(IExchangeRatesService::class, ExchangeRatesService::class);
         $this->app->bind(IGetZonesService::class, GetZonesService::class);
         $this->app->bind(IGetHotelsService::class, GetHotelsService::class);
-
+        $this->app->bind(ISaveSoldStayService::class, SaveSoldStayService::class);
     }
 
     /**

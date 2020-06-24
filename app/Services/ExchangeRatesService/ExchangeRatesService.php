@@ -12,10 +12,6 @@ class ExchangeRatesService implements IExchangeRatesService
         $req_url = 'https://openexchangerates.org/api/latest.json?app_id='.$apiKey; // 23db6f1918544371bec3c71212f37943 Always USD as base currency as long as I use Free plan for this API
         $response_json = file_get_contents($req_url);
         $obj = json_decode($response_json);
-        $result = $obj->rates->$to * $amount;
-        return $result;
-        /*return response()->json([
-            'data' => $to
-        ]);*/
+        return $obj->rates->{$to} * $amount;
     }
 }

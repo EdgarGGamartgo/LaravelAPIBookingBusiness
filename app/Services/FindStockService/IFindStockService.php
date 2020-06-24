@@ -6,5 +6,5 @@ namespace App\Services\FindStockService;
 
 interface IFindStockService
 {
-    public function findStockByIdByStatus($destinyId);
+    public function findStockByIdByStatus($request);
 }

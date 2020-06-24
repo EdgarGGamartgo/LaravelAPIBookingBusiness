@@ -1,46 +1,5 @@
-        $TipoUnidades = TipoUnidad::all(); // TODO: OPTIMIZE QUERY
 
-
-        foreach($inventario as $stock) {
-                foreach($TipoUnidades as $tipoUnidad) {
-                    if($stock->idTipoUnidad == $tipoUnidad->id) {   // estatus == 1 == disponible para vender
-                        $init = substr($request->checkIn,8,1);
-                        $end = substr($request->checkOut,8,1);
-                        if($init == 0) {
-                            $init = substr($request->checkIn,9,1);
-                        } else {
-                            $init = substr($request->checkIn,8,2);
-                        }
-                        if($end == 0) {
-                            $end = substr($request->checkOut,9,1);
-                        } else {
-                            $end = substr($request->checkOut,8,2);
-                        }
-                        $numberDays = $end - $init;
-                        info("Init");
-                        info($init);
-                        info("End");
-                        info($end);
-                        info("Result");
-                        info($numberDays);
-                        $result = [
-                            "hotelName"=> $stock->nombreEspacio,
-                            "arrivalDate"=> $request->checkIn,
-                            "departureDate"=> $request->checkOut,
-                            "totalCost"=> $tipoUnidad->precio_noche * $numberDays,        // "Inventario" table lacks a cost per night
-                            "currency"=> "MXN"
-                        ];
-                        //   exchangeRates(100,"EUR"); Separate business logic into services: single action classes, traits, Design Pattern : Service Layer with Laravel 5,
-                        // CALL EXCHANGE SERVICE, MULTIPLE totalCost and get the proper currency displayed from front end language
-                        // return json with first option the "hotel selected" if possible, also return the exact dates and
-                        // Also adults, kids and rooms and of course add extra services
-                        // This is a complex WS and it's going to take some time
-                        array_push($allResults,$result);
-                    }
-                }
-
-        }
-
+            TODO'S
 ---------------------------------------------------------------------
 
 1) searchAvailability POST turn into GET with HEADERS --> DONE
@@ -48,66 +7,12 @@
 3) Return total night to client ---> DONE
 4) Lang --> Currency on ExchangeRates --> DONE
 5) axios.get('url', {headers: {"x-dsi-restful":1}})  ---> DONE
+5) Extra services ---> on put off!!! <---
+6) Restrain --> searchAvailability <-- with maxAdults, maxKids and maxRooms --> DONE
+7) getZones WS --> DONE
+8) getHotels WS --> DONE
+8) WS STAYS (ONCE A CLIENT HAS BOUGHT SOMETHING THEN REGISTER A NEW ENTRY ON DB) --> DONE
+9) WS history of stays --> ON PROCESS
+10) WS credits/coupons by user --> ON PROCESS
+11) Implement all previous WS's on the front to finish the full flow "My trips" --> ON PROCESS
 -----------------------------------------------------------------------
-<script>
-  export default {
-    data () {
-      return {
-        items: [
-          {
-            action: 'local_activity',
-            title: 'Attractions',
-            items: [
-              { title: 'List Item' },
-            ],
-          },
-          {
-            action: 'restaurant',
-            title: 'Dining',
-            active: true,
-            items: [
-              { title: 'Breakfast & brunch' },
-              { title: 'New American' },
-              { title: 'Sushi' },
-            ],
-          },
-          {
-            action: 'school',
-            title: 'Education',
-            items: [
-              { title: 'List Item' },
-            ],
-          },
-          {
-            action: 'directions_run',
-            title: 'Family',
-            items: [
-              { title: 'List Item' },
-            ],
-          },
-          {
-            action: 'healing',
-            title: 'Health',
-            items: [
-              { title: 'List Item' },
-            ],
-          },
-          {
-            action: 'content_cut',
-            title: 'Office',
-            items: [
-              { title: 'List Item' },
-            ],
-          },
-          {
-            action: 'local_offer',
-            title: 'Promotions',
-            items: [
-              { title: 'List Item' },
-            ],
-          },
-        ],
-      }
-    },
-  }
-</script>

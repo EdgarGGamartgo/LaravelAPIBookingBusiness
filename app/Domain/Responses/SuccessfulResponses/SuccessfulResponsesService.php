@@ -13,12 +13,28 @@ class SuccessfulResponsesService implements ISuccessfulResponses
 
     protected IFindTotalNumberReservationNights $findTotalNumberReservationNights;
     protected IExchangeRatesService $exchangeRatesService;
+    protected int $successStatus = 200;
 
     public function __construct(IFindTotalNumberReservationNights $findTotalNumberReservationNights,
                                 IExchangeRatesService $exchangeRatesService)
     {
         $this->exchangeRatesService = $exchangeRatesService;
         $this->findTotalNumberReservationNights = $findTotalNumberReservationNights;
+    }
+
+    public function generalSuccessfulResponse($response)
+    {
+        return response()->json([
+            'data' => $response,
+            'meta' => [
+                'statusCode' => $this->successStatus
+            ]
+        ]);
+    }
+
+    public function general404Response()
+    {
+        return response(['error'=>true,'error-msg'=>"No availability"],404);
     }
 
     public function successfulAvailabilityResponse($stock, $request)
@@ -35,7 +51,10 @@ class SuccessfulResponsesService implements ISuccessfulResponses
                 "departureDate"=> $request->checkOut,
                 "totalCost"=> $convertedRate,
                 "totalNights"=> $numberDays,
-                "currency"=> $request->currency // TODO: GET REAL CURRENCY USE EXTERNAL CURRENCY API
+                "currency"=> $request->currency,
+                "maxAdults"=> $stock->maxAdults,
+                "maxKids" => $stock->maxKids,
+                "maxRooms" => $stock->maxRooms
             ];
             array_push($allResults,$result);
         }
