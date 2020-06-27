@@ -40,3 +40,9 @@ Route::group(['middleware' => 'auth:api'], function(){
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('getZones', 'HotelController@getZones');
 });
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::get('getCredits', 'HotelController@getCredits');
+});
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::get('getTravelHistory', 'HotelController@getTravelHistory');
+});

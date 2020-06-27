@@ -1,5 +1,6 @@
 <?php
 
+use App\Credito;
 use App\Destino;
 use App\Inventario;
 use App\Solicitud;
@@ -33,7 +34,14 @@ Route::get('/insert', function () {
 
 Route::get('/traits', 'ViajesController@traits');
 
+Route::get('/oneToOne', function () {
 
+    $creditType = Credito::find(1)->creditType;
+    $user = Credito::find(1)->user;
+    info($user);
+    return $creditType->TipoCredito."   ".$user->name;
+
+});
 
 //Route::get('/update', 'HotelController@getZones');
 //Route::get('/getHotels2', 'HotelController@getHotels');

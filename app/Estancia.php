@@ -27,4 +27,9 @@ class Estancia extends Model
     ];
 
       protected $guarded = [];
+
+    public function unit()
+    {
+        return $this->hasOne('App\Unidad', 'id','id_unidad');
+    }
 }

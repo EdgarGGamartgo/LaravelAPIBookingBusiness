@@ -29,6 +29,7 @@ class SaveSoldStayService implements ISaveSoldStayService
             $stay->precio_venta = $request->precio_venta;
             $stay->precio_compra = 0.00;  // Where shall I get it ?
             $stay->precio_noche = $request->precio_noche;
+            $stay->noches_estancia = $request->noches_estancia;
             $stay->idInventario = $request->idInventario;
             $savedStay = $stay->save();
             if($savedStay) {
