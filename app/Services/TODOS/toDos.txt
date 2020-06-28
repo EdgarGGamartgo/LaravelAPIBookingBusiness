@@ -14,5 +14,9 @@
 8) WS STAYS (ONCE A CLIENT HAS BOUGHT SOMETHING THEN REGISTER A NEW ENTRY ON DB) --> DONE
 9) WS history of stays --> DONE
 10) WS credits/coupons by user --> DONE
-11) Implement all previous WS's on the front to finish the full flow "My trips" --> ON PROCESS
+11) Implement all previous WS's on the front to finish the full flow "My trips" --> DONE
+12) WS PayPal Instant Payment Notification --> ON PROCESS
+13) WS mailSender (payment confirmation)--> ON PROCESS
+14) Implement front numberFormat() on every and each price --> DONE
+
 -----------------------------------------------------------------------

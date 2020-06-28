@@ -6,15 +6,18 @@ namespace App\Services\GetCreditsService;
 
 use App\Credito;
 use App\Domain\Responses\SuccessfulResponses\ISuccessfulResponses;
+use App\Services\ExchangeRatesService\IExchangeRatesService;
 
 class GetCreditsService implements IGetCreditsService
 {
 
-    protected  ISuccessfulResponses $successfulResponses;
+    protected ISuccessfulResponses $successfulResponses;
+    protected IExchangeRatesService $exchangeRatesService;
 
-    public function __construct(ISuccessfulResponses $successfulResponses)
+    public function __construct(ISuccessfulResponses $successfulResponses, IExchangeRatesService $exchangeRatesService)
     {
         $this->successfulResponses = $successfulResponses;
+        $this->exchangeRatesService = $exchangeRatesService;
     }
 
     public function getCredits($request){
@@ -24,7 +27,8 @@ class GetCreditsService implements IGetCreditsService
             $creditType = Credito::find($credit->id)->creditType;
             $result = [
                 "creditType" => $creditType,
-                "amount" => $credit->importe
+                "amount" => $this->exchangeRatesService->exchangeRates($credit->importe, $request->currency),
+                "currency" =>  $request->currency
             ];
             array_push($allResults,$result);
         }

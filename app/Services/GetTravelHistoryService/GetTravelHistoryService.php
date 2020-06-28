@@ -6,14 +6,18 @@ namespace App\Services\GetTravelHistoryService;
 
 use App\Domain\Responses\SuccessfulResponses\ISuccessfulResponses;
 use App\Estancia;
+use App\Services\ExchangeRatesService\IExchangeRatesService;
 
 class GetTravelHistoryService implements IGetTravelHistoryService
 {
         protected ISuccessfulResponses $successfulResponses;
+        protected IExchangeRatesService $exchangeRatesService;
 
-        public function __construct(ISuccessfulResponses $successfulResponses)
+        public function __construct(ISuccessfulResponses $successfulResponses, IExchangeRatesService $exchangeRatesService)
         {
             $this->successfulResponses = $successfulResponses;
+            $this->exchangeRatesService = $exchangeRatesService;
+
         }
 
     public function getTravelHistory($request){
@@ -26,8 +30,9 @@ class GetTravelHistoryService implements IGetTravelHistoryService
                 "checkIn" => $stay->checkin,
                 "checkOut" => $stay->checkout,
                 "hotel" => $unit->nombre,
-                "totalCOst" => $stay->precio_venta,
+                "totalCOst" => $this->exchangeRatesService->exchangeRates($stay->precio_venta, $request->currency),
                 "totalNights" => $stay->noches_estancia,
+                "currency" =>  $request->currency
             ];
             array_push($allResults,$result);
         }

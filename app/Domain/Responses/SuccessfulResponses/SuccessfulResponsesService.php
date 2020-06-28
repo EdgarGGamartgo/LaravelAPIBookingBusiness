@@ -43,7 +43,7 @@ class SuccessfulResponsesService implements ISuccessfulResponses
         $allResults = array();
         foreach($stock as $stock) {
             $TipoUnidad = TipoUnidad::where(['id' => $stock->idTipoUnidad])->get();
-            $usdTotalCost = $TipoUnidad[0]->precio_noche * $numberDays;
+            $usdTotalCost = $TipoUnidad[0]->precio_noche * $numberDays *$request->rooms;
             $convertedRate = $this->exchangeRatesService->exchangeRates($usdTotalCost, $request->currency);
             $result = [
                 "hotelName"=> $stock->nombreEspacio,
