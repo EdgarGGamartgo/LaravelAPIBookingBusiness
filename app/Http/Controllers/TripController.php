@@ -20,4 +20,13 @@ class TripController extends Controller
         return $this->saveSoldStayService->saveSoldStay($request);
     }
 
+    public function ipnPaypal(Request $request) {
+
+        $data = $request->all();
+        if($data['payment_status'] == "Completed"){
+            // We will send email to user
+            // Update order status to Payment Captured
+        }
+    }
+
 }
