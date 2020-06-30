@@ -6,6 +6,7 @@ use App\Services\GetCreditsService\IGetCreditsService;
 use App\Services\GetHotelsService\IGetHotelsService;
 use App\Services\GetTravelHistoryService\IGetTravelHistoryService;
 use App\Services\GetZonesService\IGetZonesService;
+use App\Services\SendMailService\ISendMailService;
 use Illuminate\Http\Request;
 
 class HotelController extends Controller
@@ -14,10 +15,14 @@ class HotelController extends Controller
     protected IGetHotelsService $getHotelsService;
     protected IGetCreditsService $getCreditsService;
     protected IGetTravelHistoryService $getTravelHistoryService;
+    protected ISendMailService $sendMailService;
+
 
     public function __construct(IGetZonesService $getZonesService, IGetHotelsService $getHotelsService,
-                                IGetCreditsService $getCreditsService, IGetTravelHistoryService $getTravelHistoryService)
+                                IGetCreditsService $getCreditsService, IGetTravelHistoryService $getTravelHistoryService,
+                                ISendMailService $sendMailService)
     {
+        $this->sendMailService = $sendMailService;
         $this->getZonesService = $getZonesService;
         $this->getHotelsService = $getHotelsService;
         $this->getCreditsService = $getCreditsService;
@@ -25,6 +30,7 @@ class HotelController extends Controller
     }
 
     public function getTravelHistory(Request $request) {
+
         return $this->getTravelHistoryService->getTravelHistory(json_decode($request->header('g-t-h')));
     }
 

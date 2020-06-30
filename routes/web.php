@@ -3,8 +3,11 @@
 use App\Credito;
 use App\Destino;
 use App\Inventario;
+use App\Notifications\TaskCompleted;
 use App\Solicitud;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Route;
 
 use App\User;
@@ -36,10 +39,15 @@ Route::get('/traits', 'ViajesController@traits');
 
 Route::get('/oneToOne', function () {
 
-    $creditType = Credito::find(1)->creditType;
-    $user = Credito::find(1)->user;
-    info($user);
-    return $creditType->TipoCredito."   ".$user->name;
+    $arr = [ 'foo' => "bar" ];
+$when = Carbon::now()->addSeconds(10);
+$users = User::find(9);
+//User::find(9)->notify(new TaskCompleted($arr));
+
+Notification::send($users, (new TaskCompleted($arr))->delay($when));
+
+
+
 
 });
 

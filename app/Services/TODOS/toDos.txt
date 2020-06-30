@@ -16,7 +16,9 @@
 10) WS credits/coupons by user --> DONE
 11) Implement all previous WS's on the front to finish the full flow "My trips" --> DONE
 12) WS PayPal Instant Payment Notification --> ON PROCESS
-13) WS mailSender (payment confirmation)--> ON PROCESS
+13) WS mailSender (payment confirmation)--> DONE
 14) Implement front numberFormat() on every and each price --> DONE
+15) Nights number logic fails when calculating substraction between different months and years.
+Ot only works well when calculating days whithin the same month and year. Validate that --> ON PROCESS
 
 -----------------------------------------------------------------------

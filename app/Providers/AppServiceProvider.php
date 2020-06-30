@@ -26,6 +26,8 @@ use App\Services\SaveSoldStayService\ISaveSoldStayService;
 use App\Services\SaveSoldStayService\SaveSoldStayService;
 use App\Services\SearchAvailabilityService\SearchAvailabilityInterface;
 use App\Services\SearchAvailabilityService\SearchAvailabilityService;
+use App\Services\SendMailService\ISendMailService;
+use App\Services\SendMailService\SendMailService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -49,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ISaveSoldStayService::class, SaveSoldStayService::class);
         $this->app->bind(IGetCreditsService::class, GetCreditsService::class);
         $this->app->bind(IGetTravelHistoryService::class, GetTravelHistoryService::class);
+        $this->app->bind(ISendMailService::class, SendMailService::class);
 
     }
 

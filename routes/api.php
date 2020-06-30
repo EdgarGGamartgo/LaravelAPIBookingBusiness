@@ -47,7 +47,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('getTravelHistory', 'HotelController@getTravelHistory');
 });
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::get('send', 'mailController@send');
+    Route::get('sendConfirPayMail', 'mailController@send');
 });
 // PayPal IPN
 Route::post('paypal/ipn', 'TripController@ipnPaypal');
